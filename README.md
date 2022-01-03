@@ -4,22 +4,32 @@ This is a very simple python script intended to switch themes from light to dark
 
 ## Supported programs :
 
-- (doom) Emacs
 - Alacritty
 - polybar
+- (doom) Emacs (WIP)
 
 ## Preparations :
 
-- Add the following line to `~/,profile`
-
-``` sh
-export UTHEME="dark"
-```
-
-- install [alacritty-colorscheme](https://github.com/toggle-corp/alacritty-colorscheme) 
+### General :
 
 - have a notification deamon
 
 - be cool
+
+### Alacritty :
+
+- install [alacritty-colorscheme](https://github.com/toggle-corp/alacritty-colorscheme) 
+
+### Polybar :
+
+- have two polybar configs named `config.dark` & `config.light`.
+
+- add the following lines to your polybar launch script :
+
+``` sh
+cfg="$HOME/.config/polybar/config.$1"
+....
+polybar "...." --config=$cfg
+```
 
 -------------------------------------------------------------------------------
