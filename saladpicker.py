@@ -5,6 +5,7 @@ import sys
 cfile = os.getenv('HOME') + "/.config/saladpicker/saladrc"
 fo = open(cfile, "r")
 current = fo.read(5)
+
 # themes
 term_light = "gruvbox_light.yaml"
 term_dark  = "gruvbox_material.yml"
@@ -12,8 +13,7 @@ term_dark  = "gruvbox_material.yml"
 doom_light = "doom-gruvbox-light"
 doom_dark  = "doom-gruvbox"
 
-poly_light = ['#222', '#dfdfdf'] # [foreground, background]
-poly_dark  = ['#dfdfdf', '#222']
+polybar_cpath = os.getenv('HOME') + "/.config/polybar/launch.sh"
 
 # variables sent to os.system()
 notif = ""
@@ -25,8 +25,12 @@ def light_now():
         os.system(notif)
         return "ligh"
 
-    fo.close()
+    # alacritty
     cmd = "alacritty-colorscheme apply " + term_light
+    os.system(cmd)
+
+    # polybar
+    cmd = polybar_cpath + " light"
     os.system(cmd)
     return "ligh"
 
@@ -36,13 +40,18 @@ def dark_now():
         os.system(notif)
         return "dark"
 
-    fo.close()
+    # alacritty
     cmd = "alacritty-colorscheme apply " + term_dark
+    os.system(cmd)
+
+    # polybar
+    cmd = polybar_cpath + " dark"
     os.system(cmd)
     return "dark"
 
 
 def main():
+    global current
     if len(sys.argv) == 1:
         notif = "notify-send -u normal -t 3000 \"themepicker\" \"Current theme : " + os.environ['UTHEME'] + '"'
         os.system(notif)
@@ -52,6 +61,7 @@ def main():
     elif sys.argv[1] == "dark":
         os.system("notify-send -u normal -t 3000 \"themepicker\" \"Switching to dark theme\"")
         current = dark_now()
+    fo.close()
     newf = open(cfile, "w")
     newf.write(current)
     newf.close()
