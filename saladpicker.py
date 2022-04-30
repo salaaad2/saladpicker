@@ -4,10 +4,10 @@ import sys
 # read config
 cfile = os.getenv('HOME') + "/.config/saladpicker/saladrc"
 fo = open(cfile, "r")
-current = fo.read(5)
+current = fo.readline()
 
 # themes
-term_light = "gruvbox_light.yaml"
+term_light = "night_owlish_light.yaml"
 term_dark  = "gruvbox_material.yml"
 
 doom_light = "doom-gruvbox-light"
@@ -20,7 +20,7 @@ notif = ""
 cmd = ""
 
 def light_now():
-    if current == "ligh":
+    if current == "light":
         notif = "notify-send -u normal -t 3000  \"themepicker\" \"You are already in light mode, stupid\""
         os.system(notif)
         return "ligh"
